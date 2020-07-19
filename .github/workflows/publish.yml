@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: [IoC] Publish Package
+name: IoC Publish Package
 
 jobs:
   build:

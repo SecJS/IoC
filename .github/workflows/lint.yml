@@ -1,0 +1,36 @@
+on: [pull_request]
+
+name: IoC Check Lint
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJs
+        uses: actions/setup-node@v1
+        with:
+          node-version: '13.x'
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: false
+          scope: SecJS
+
+      - name: Yarn intall
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Try linting
+        run: yarn lint:fix
+
+      - name: Init testing
+        run: yarn ci-test
+
+      - name: Build
+        run: yarn build
+
+        env:
+          CI: true

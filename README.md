@@ -38,8 +38,6 @@ const userService = container.get<UserService>(UserService.name)
 console.log(userService.findAll())
 ```
 
----
-
 ## TODO
 
 - [ ] Add ServiceProvider to have IoC Container running globally during runtime.

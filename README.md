@@ -40,6 +40,12 @@ console.log(userService.findAll())
 
 ---
 
+## TODO
+
+- [ ] Add ServiceProvider to have IoC Container running globally during runtime.
+
+---
+
 ## License
 
 MIT © [João Lenon](https://github.com/SecJS/IoC/blob/master/LICENSE)

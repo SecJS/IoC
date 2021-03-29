@@ -22,8 +22,8 @@ export class Container implements ContainerContract {
 }
 
 // TODO Put inside of a ServiceProvider
-global.container = new Container()
+// global.container = new Container()
 
-global.use = function use<Dependency>(name: string): Dependency {
-  return container.get(name)
-}
+// global.use = function use<Dependency>(name: string): Dependency {
+//   return container.get(name)
+// }

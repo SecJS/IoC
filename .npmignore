@@ -1,5 +1,0 @@
-*
-!build/**/**/*
-build/**/*.test.*
-!package.json
-!*.md

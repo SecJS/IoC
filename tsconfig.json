@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "rootDir": "./src/",
-    "outDir": "build",
+    "rootDir": ".",
+    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "target": "es2017",
-    "module": "commonjs",
+    "module": "es2020",
     "lib": ["es2017"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -16,5 +16,5 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*", "test/**/*"],
-  "exclude": ["node_modules", "build", "dist", "test"]
+  "exclude": ["node_modules", "dist", "test"]
 }

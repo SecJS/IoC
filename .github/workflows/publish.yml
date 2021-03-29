@@ -1,9 +1,10 @@
+
+name: IoC Publish
+
 on:
   push:
     branches:
       - master
-
-name: IoC Publish Package
 
 jobs:
   build:
@@ -11,13 +12,15 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '13.x'
-        registry-url: 'https://npm.pkg.github.com'
-    - run: yarn
-    - run: yarn publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Deploy
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn
+      - run: yarn lint:fix
+      - run: yarn test
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          name: Deploy

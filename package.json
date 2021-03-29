@@ -1,75 +1,44 @@
 {
   "name": "@secjs/ioc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
-    "pretest": "yarn lint",
-    "test": "node japaFile.js",
-    "clean": "del build",
-    "compile": "yarn lint && yarn clean && tsc",
-    "build": "yarn compile",
-    "prepublishOnly": "yarn build",
-    "coverage": "nyc --reporter=lcov --reporter=text --clean node japaFile.js && http-server test/coverage/lcov-report",
-    "ci-test": "nyc --reporter=text-summary --clean node japaFile.js",
-    "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts",
-    "dev": "tsc --watch",
-    "commit": "git-cz",
-    "release": "np",
-    "version": "yarn build"
+    "test": "jest --verbose"
   },
+  "keywords": [
+    "ioc",
+    "nodejs"
+  ],
+  "repository": "https://github.com/secjs/ioc",
+  "author": "João Lenon <lenonsec7@gmail.com>",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@adonisjs/mrm-preset": "2.0.3",
-    "@types/cls-hooked": "^4.3.0",
-    "@types/express": "^4.17.7",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash": "^4.14.154",
-    "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
-    "cls-hooked": "^4.2.2",
-    "commitizen": "^4.0.4",
-    "cz-conventional-changelog": "^3.1.0",
-    "del-cli": "^3.0.0",
-    "doctoc": "^1.4.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-import": "^2.20.2",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "http-server": "^0.12.3",
-    "husky": "^4.2.5",
-    "japa": "^3.0.1",
-    "mrm": "^2.2.1",
-    "np": "^6.2.2",
-    "nyc": "^15.0.1",
-    "prettier": "^2.0.5",
-    "supertest": "^4.0.2",
-    "ts-node": "^8.9.0",
-    "typescript": "^3.8.3",
-    "uuidv4": "^6.1.1"
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^5.2.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
   },
-  "author": "",
-  "license": "Unlicense",
-  "nyc": {
-    "exclude": [
-      "test"
-    ],
-    "extension": [
-      ".ts"
-    ]
-  },
-  "main": "build/",
-  "types": "build/",
   "files": [
     "build",
     "build/Responses/index.d.ts",
@@ -77,17 +46,66 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "yarn lint",
-      "commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "np": {
-    "contents": ".",
-    "anyBranch": false
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "semi": false
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "standard",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "globals": {
+      "use": true,
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "@typescript-eslint/interface-name-prefix": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/camelcase": "off"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      }
+    }
   }
 }

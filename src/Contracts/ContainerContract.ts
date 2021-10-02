@@ -1,5 +1,5 @@
 export interface ContainerContract {
-  signature: string
-  get<Dependency>(name: string): Dependency
-  set<Dependency>(name: string, dependency: Dependency): void
+  get<D>(name: string): D
+  set<D>(name: string, dependency: { new (): D }): void
+  singleton<D>(name: string, dependency: { new (): D }): void
 }

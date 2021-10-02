@@ -1,11 +1,10 @@
-import { createHash } from 'crypto'
 import { ContainerContract } from './Contracts/ContainerContract'
 
 export class Container implements ContainerContract {
   private services = new Map()
 
-  get signature(): string {
-    return createHash('md5').digest('hex')
+  getAll() {
+    return this.services
   }
 
   get<D>(name: string): D {
@@ -13,17 +12,20 @@ export class Container implements ContainerContract {
       throw new Error(`Dependency ${name} not found`)
     }
 
-    return this.services.get(name)
+    const Dep = this.services.get(name)
+
+    if (Dep instanceof Function) {
+      return new Dep()
+    }
+
+    return Dep
   }
 
-  set<D>(name: string, Dep: D): void {
+  set<D>(name: string, Dep: { new (): D }): void {
     this.services.set(name, Dep)
   }
+
+  singleton<D>(name: string, Dep: { new (): D }): void {
+    this.services.set(name, new Dep())
+  }
 }
-
-// TODO Put inside of a ServiceProvider
-// global.container = new Container()
-
-// global.use = function use<Dependency>(name: string): Dependency {
-//   return container.get(name)
-// }

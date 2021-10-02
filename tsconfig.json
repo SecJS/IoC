@@ -1,20 +1,24 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "dist",
-    "strict": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
-    "target": "es2017",
-    "module": "es2020",
-    "lib": ["es2017"],
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": true,
+    "module": "commonjs",
     "declaration": true,
-    "moduleResolution": "node",
-    "strictNullChecks": true,
-    "allowSyntheticDefaultImports": true
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "importHelpers": true,
+    "removeComments": false,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": false,
+    "allowJs": false,
+    "strict": true,
+    "strictNullChecks": false
   },
-  "include": ["src/**/*", "test/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+  "include": ["*.ts", "**/*.ts"],
+  "exclude": ["node_modules", "build", "dist", "tests"]
 }

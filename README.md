@@ -16,10 +16,8 @@ The intention behind this repository is to always maintain a viable and simple I
 
 ## Installation
 
-You can install the IoC using;
-
 ```bash
-yarn add @SecJS/IoC
+npm install @secjs/ioc
 ```
 
 ## Usage
@@ -38,12 +36,6 @@ const userService = container.get<UserService>(UserService.name)
 console.log(userService.findAll())
 ```
 
-## TODO
-
-- [ ] Add ServiceProvider to have IoC Container running globally during runtime.
-
 ---
 
-## License
-
-MIT © [João Lenon](https://github.com/SecJS/IoC/blob/master/LICENSE)
+Made with 🖤 by [jlenon7](https://github.com/jlenon7) :wave:

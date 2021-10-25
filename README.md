@@ -22,7 +22,9 @@ npm install @secjs/ioc
 
 ## Usage
 
-> Container register dependencies using Singleton pattern
+### Set
+
+> Container can register dependencies for you, every container.get will create a new instance for UserService.
 
 ```js
 import { Container } from '@SecJS/IoC'
@@ -30,10 +32,36 @@ import { UserService } from 'app/Services/UserService'
 
 const container = new Container()
 
-container.set(UserService.name, new UserService())
-const userService = container.get<UserService>(UserService.name)
+container.set(UserService)
+const userService = container.get<UserService>('UserService', 'props', 'to', 'UserService Constructor here')
 
 console.log(userService.findAll())
+```
+
+### Singleton
+
+> Container can register singleton dependencies, when singleton container.get will return the same UserService instance all time.
+
+```js
+import { Container } from '@SecJS/IoC'
+import { UserService } from 'app/Services/UserService'
+
+const container = new Container()
+
+container.singleton(UserService, 'props', 'to', 'UserService Constructor here')
+const userService = container.get<UserService>('UserService')
+
+console.log(userService.findAll())
+```
+
+> Singleton can register static objects and arrays too, but for arrays and objects the name is required:
+
+```js
+container.singleton([], 'myArray')
+container.singleton({}, 'myObject')
+
+console.log(container.get('myArray')) // []
+console.log(container.get('myObject')) // {}
 ```
 
 ---

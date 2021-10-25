@@ -1,3 +1,4 @@
+import { InternalServerException } from '@secjs/exceptions'
 import { ContainerContract } from './Contracts/ContainerContract'
 
 export class Container implements ContainerContract {
@@ -7,25 +8,44 @@ export class Container implements ContainerContract {
     return this.services
   }
 
-  get<D>(name: string): D {
+  get<D>(name: string, ...constructor: any): D {
     if (!this.services.has(name)) {
       throw new Error(`Dependency ${name} not found`)
     }
 
-    const Dep = this.services.get(name)
+    const { isSingleton, Dependency } = this.services.get(name)
 
-    if (Dep instanceof Function) {
-      return new Dep()
+    if (!isSingleton) {
+      return new Dependency(...constructor)
     }
 
-    return Dep
+    return Dependency
   }
 
-  set<D>(name: string, Dep: { new (): D }): void {
-    this.services.set(name, Dep)
+  set(Dep: any, name?: string): void {
+    this.services.set(name || Dep.name, {
+      isSingleton: false,
+      Dependency: Dep,
+    })
   }
 
-  singleton<D>(name: string, Dep: { new (): D }): void {
-    this.services.set(name, new Dep())
+  singleton(Dep: any, name?: string, ...constructor: any): void {
+    let dependency
+
+    if (typeof Dep === 'object' || Array.isArray(Dep)) {
+      dependency = Dep
+
+      if (!name)
+        throw new InternalServerException(
+          'Name cannot be empty on objects and arrays.',
+        )
+    } else {
+      dependency = new Dep(...constructor)
+    }
+
+    this.services.set(name || Dep.name, {
+      isSingleton: true,
+      Dependency: dependency,
+    })
   }
 }

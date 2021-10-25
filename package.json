@@ -1,6 +1,6 @@
 {
   "name": "@secjs/ioc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -15,7 +15,9 @@
   "repository": "https://github.com/secjs/ioc",
   "author": "João Lenon <lenonsec7@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@secjs/exceptions": "^1.0.3"
+  },
   "devDependencies": {
     "@types/debug": "4.1.5",
     "@types/jest": "27.0.1",

@@ -1,5 +1,5 @@
 import { InternalServerException } from '@secjs/exceptions'
-import { ContainerContract } from './Contracts/ContainerContract'
+import { ContainerContract } from './contracts/ContainerContract'
 
 export class Container implements ContainerContract {
   private services = new Map()

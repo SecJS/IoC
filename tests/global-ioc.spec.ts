@@ -1,4 +1,4 @@
-import '../src/Utils/global'
+import '../src/utils/global'
 
 import { Dependency } from './stubs/Dependency'
 

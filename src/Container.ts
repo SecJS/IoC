@@ -29,6 +29,10 @@ export class Container implements ContainerContract {
     })
   }
 
+  delete(name: string): void {
+    this.services.delete(name)
+  }
+
   singleton(Dep: any, name?: string, ...constructor: any): void {
     let dependency
 

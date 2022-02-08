@@ -8,4 +8,4 @@ declare global {
 
 const _global = global as any
 
-_global.Container = new Container()
+if (!_global.Container) _global.Container = new Container()
